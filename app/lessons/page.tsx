@@ -1,8 +1,12 @@
+import Navbar from "@/components/Navbar";
+import SetLessons from "@/components/setLessons";
+
 function Lessons() {
     return (
-        <div>
-            <h1>lessons</h1>
-        </div>
+        <main className="flex min-h-screen flex-col items-center">
+            <Navbar />
+            <SetLessons />
+        </main>
     );
 }
 
