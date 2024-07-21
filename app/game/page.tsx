@@ -26,8 +26,8 @@ function Game(): GameProps {
             <div className="w-full h-fit items-center justify-center flex flex-col">
                 <p className="text-4xl font-bold text-wrap text-center text-[#343434]">{currentQuiz.question}</p>
                 <div className="flex gap-6 mt-20">
-                    {currentQuiz.options.map((option) => (
-                        <button className={`text-4xl text-white p-24  ${currentQuiz.type == 'boolean' ? "bg-[#35CD4D]" : "bg-[#FBAE17]"} rounded-[36px]`} onClick={
+                    {currentQuiz.options.map((option, index) => (
+                        <button key={index} className={`text-4xl text-white p-24  ${currentQuiz.type == 'boolean' ? "bg-[#35CD4D]" : "bg-[#FBAE17]"} rounded-[36px]`} onClick={
                             () => {
                                 setSelectedOption(option)
                                 if (selectedOption === currentQuiz.answer) {
