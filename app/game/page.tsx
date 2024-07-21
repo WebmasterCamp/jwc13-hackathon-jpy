@@ -1,21 +1,20 @@
 'use client'
 import quizs from "@/lib/database";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-interface GameProps {
-
-}
-
-function Game(): GameProps {
+function Game() {
     const [currentQuiz, setCurrentQuiz] = useState(quizs.quizs[0]);
     const [selectedOption, setSelectedOption] = useState("");
     const [score, setScore] = useState(0);
 
+    const router = useRouter();
+
     return (
         <main className="min-w-[1440px] flex flex-col items-center justify-center gap-[33px] p-24">
             <div className="flex gap-2 items-center self-start">
-                <Link href={'/'}>
+                <Link href={'/game'}>
                     <svg width="23" height="21" viewBox="0 0 23 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9.9722 18.7709L2.33331 10.7501M2.33331 10.7501L9.9722 2.72925M2.33331 10.7501H20.6666" stroke="#343434" stroke-width="3.66667" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
@@ -32,6 +31,10 @@ function Game(): GameProps {
                                 setSelectedOption(option)
                                 if (selectedOption === currentQuiz.answer) {
                                     setScore(score + 1);
+                                    router.push(`/game/${currentQuiz.id}?correct=true`);
+                                } else {
+                                    setScore(score - 1);
+                                    router.push(`/game/${currentQuiz.id}?correct=false`);
                                 }
                                 setCurrentQuiz(quizs.quizs[currentQuiz.id]);
                             }

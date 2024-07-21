@@ -11,7 +11,7 @@ const rubik = Rubik({ subsets: ["latin"] });
 
 function HomePage() {
     return (
-        <main className="min-w-[1440px] flex flex-col items-center justify-center gap-[33px]">
+        <main className="min-w-[1440px] flex flex-col items-center justify-center gap-[33px] mt-[5%]">
             <div className="flex gap-[43px] items-center justify-center">
                 <h1 className={`${rubik.className} text-4xl font-bold w-[468px]`}>Welcome to coin <br /> crusher!</h1>
                 <div className="w-[492px] h-[128px] border-b-4 border-2 border-[#FBAE17] rounded-[28px] bg-[#FFF4D8]">
@@ -30,13 +30,15 @@ function HomePage() {
             <div className="flex flex-col items-start justify-center gap-[23px]">
                 <p className={`${rubik.className} text-4xl font-bold text-[#656565]`}>Our available lessons</p>
                 <div className="flex items-center justify-center rounded-[55px] w-[1002px] h[389px] bg-[#EEEEEE] px-4 py-12">
-                    <div className="flex items-center justify-around w-[935px] h-[249px] border-b-4 border-2 border-[#818181] rounded-[42px] bg-white">
-                        <Link href={'/game'} className="cursor-pointer"><Image src={play} width={90} height={90} alt="play" /></Link>
-                        <p className={`${prompt.className} text-6xl font-bold`}>บริหารการเงิน</p>
-                        <Image src={coinstack} width={190} height={190} alt="coinstack" />
-                    </div>
+                    <Link href={'/game'} className="cursor-pointer">
+                        <div className="flex items-center justify-around w-[935px] h-[249px] border-b-4 border-2 border-[#818181] rounded-[42px] bg-white">
+                            <Image src={play} width={90} height={90} alt="play" />
+                            <p className={`${prompt.className} text-6xl font-bold`}>บริหารการเงิน</p>
+                            <Image src={coinstack} width={190} height={190} alt="coinstack" />
+                        </div>
+                    </Link>
                 </div>
-            </div>  
+            </div>
         </main>
     );
 }
