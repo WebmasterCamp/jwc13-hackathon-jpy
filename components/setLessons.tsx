@@ -23,10 +23,13 @@ function SetLessons() {
                     </div>
                     <div className={`${prompt.className} text-2xl font-bold pl-[35px]`}   >
                         <div className="flex items-center gap-3">
-                            <p className="text-[#0066FF]">0%</p>
-                            <div className="w-[350px] h-3 bg-[#A6A6A6] rounded-[55px]"></div>
+                            <p className="text-[#0066FF]">20%</p>
+                            <div className="relative">  
+                                <div className="w-[70px] h-3 bg-[#0066FF] rounded-[55px] absolute"></div>
+                                <div className="w-[350px] h-3 bg-[#A6A6A6] rounded-[55px]"></div>
+                            </div>
                         </div>
-                        <p className="text-[#8C8C8C]">0/20 quizzes</p>
+                        <p className="text-[#8C8C8C]">2/20 quizzes</p>
                     </div>
                 </div>
 

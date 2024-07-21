@@ -31,14 +31,13 @@ function Game() {
                                 setSelectedOption(option)
                                 if (selectedOption === currentQuiz.answer) {
                                     setScore(score + 1);
-                                    router.push(`/game/${currentQuiz.id}?correct=true`);
+                                    router.push(`/game/${currentQuiz.id}?correctOrWrong=true`);
                                 } else {
                                     setScore(score - 1);
-                                    router.push(`/game/${currentQuiz.id}?correct=false`);
+                                    router.push(`/game/${currentQuiz.id}?correctOrWrong=false`);
                                 }
-                                setCurrentQuiz(quizs.quizs[currentQuiz.id]);
                             }
-                        }>{option}</button>
+                        }>{option}</button> 
                     ))}
                 </div>
             </div>

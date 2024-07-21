@@ -1,10 +1,24 @@
 'use client'
 import Link from "next/link";
 import quizs from "@/lib/database";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useSearchParams } from 'next/navigation'
 
-function Answer({ params }: { params: { id: number, correct: boolean } }) {
-    const currentQuiz = quizs.quizs[params.id]
+function Answer({ params }: { params: { id: string } }) {
+    const searchParams = useSearchParams()
+    const correct = searchParams.get('correctOrWrong') === 'true'
+    const view = searchParams.get('view') === 'true'
+    console.log("Param",params.id)
+    console.log("quizs",quizs)
+    const currentQuiz = quizs.quizs[Number(params.id)]
+    console.log(currentQuiz)
+    console.log(currentQuiz.id)
+    console.log("CorrectOrWrong Value:", correct, typeof correct)
+    console.log("View:", view)
+    const [selectedOption, setSelectedOption] = useState("");
+    const [score, setScore] = useState(0);
+    const router = useRouter();
 
     return (
         <div className="min-w-[1440px] flex flex-col items-center justify-center gap-[33px] p-24">
@@ -20,7 +34,7 @@ function Answer({ params }: { params: { id: number, correct: boolean } }) {
             <div className="w-full h-fit items-center justify-center flex flex-col">
                 <p className="text-4xl font-bold text-wrap text-center text-[#343434]">{currentQuiz.question}</p>
                 <div className="flex gap-6 mt-20">
-                    {params.correct ? (
+                    {/* {correct && !view ? (
                         <div className="text-4xl text-white p-24 bg-[#35CD4D] rounded-[36px]">
                             ถูก
                             <p>+1 coin</p>
@@ -31,9 +45,44 @@ function Answer({ params }: { params: { id: number, correct: boolean } }) {
                             <p>-1 coin</p>
                             <p>เฉลย: {currentQuiz.answer}</p>
                         </div>
+                    )} */}
+                    {correct && !view ? (
+                        <div className="text-4xl text-white p-24 bg-[#35CD4D] rounded-[36px]">
+                            ถูก
+                            <p>+1 coin</p>
+                        </div>
+                    ) : !correct && !view ? (
+                        <div className="text-4xl text-white p-24 bg-[#FBAE17] rounded-[36px]">
+                            ผิด
+                            <p>-1 coin</p>
+                            <p>เฉลย: {currentQuiz.answer}</p>
+                        </div>
+                    ) : view ? (
+                        <div className="flex gap-6 mt-20">
+                            {currentQuiz.options.map((option, index) => (
+                                <button key={index} className={`text-4xl text-white p-24  ${currentQuiz.type == 'boolean' ? "bg-[#35CD4D]" : "bg-[#FBAE17]"} rounded-[36px]`} onClick={
+                                    () => {
+                                        setSelectedOption(option)
+                                        console.log("Selected Option:", selectedOption)
+                                        console.log(currentQuiz.answer)
+                                        if (selectedOption === currentQuiz.answer) {
+                                            setScore(score + 1);
+                                            router.push(`/game/${currentQuiz.id}?correctOrWrong=true`);
+                                        } else {
+                                            setScore(score - 1);
+                                            router.push(`/game/${currentQuiz.id}?correctOrWrong=false`);
+                                        }
+                                    }
+                                }>{option}</button>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="flex gap-6 mt-20">
+                            Error Occur!
+                        </div>
                     )}
                 </div>
-                <Link href={`/game/${params.id++}`} className="mt-10 p-3 text-2xl bg-green-500 rounded-xl text-white">Next</Link>
+                {!view && <Link href={`/game/${params.id}?view=true`} className="mt-10 p-3 text-2xl bg-green-500 rounded-xl text-white">Next</Link>}
             </div>
         </div>
     );

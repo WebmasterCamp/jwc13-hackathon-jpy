@@ -5,7 +5,7 @@ import "./globals.css";
 const rubik = Rubik({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JWC13 - [AppName]",
+  title: "CoinCrushers",
   description: "Part of JWC13 Hackathon",
 };
 
